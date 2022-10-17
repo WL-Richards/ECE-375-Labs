@@ -12,7 +12,10 @@
 ;*	Internal Register Definitions and Constants
 ;***********************************************************
 .def	mpr = r16				; Multipurpose register is required for LCD Driver
-.def	waitcnt = r17			; Wait Loop Counter
+
+.def	waitcnt = r23			; Wait Loop Counter
+.def	ilcnt = r18				; Inner Loop Counter
+.def	olcnt = r19				; Outer Loop Counter
 
 ;***********************************************************
 ;*	Start of Code Segment
@@ -71,7 +74,7 @@ MAIN:							; The Main program
 		breq PrintNamesOrder2
 
         ; Check if the pin pressed was 7, active LOW, or 0b01111111
-        cpi mdr, 0b01111111
+        cpi mpr, 0b01111111
         breq ScrollNames
 
 		rjmp	MAIN			; jump back to main and create an infinite
@@ -119,39 +122,36 @@ PrintNamesOrder2:
 ; Scroll Names horizontally across LCD display, flipping the lines when they circle around. Do this until the button is released
 ;-----------------------------------------------------------
 ScrollNames:
-        ldi ZL, low(2*FIRST_NAME)       ; Store the address of the first name into Z pointer
-	ldi ZH, high(2*FIRST_NAME)
+        ldi ZL, 0x10					; Store the end of the First Line in register Z, one past the limit cause we pre decrement
+		ldi ZH, 0x01
 
-        adiw ZH:ZL, 15                  ; Move Z pointer to the end
-        ld r13, Z                       ; Load the last char of Z in r13
+        ld r13, -Z						; Load the last char of Z in r13, then decrement
 
-        ldi YL, low(2*SECOND_NAME)      ; Store the address of the second name into Y pointer
-        ldi YH, high(2*SECOND_NAME)
+        ldi YL, 0x20					; Store the end of the Second Line in register Y
+        ldi YH, 0x01
 
-        adiw YH:YL, 15                  ; Move Y pointer to the end
-        ld r24, Y                       ; Load the last char of Y in r24
+        ld r24, -Y                      ; Load the last char of Y in r24, then decrement
 
         ShiftChars:
-            ld r15, -Z                  ; Load char Z points to into r15
-            ld r25, -Y                  ; Load char Y points to into r25
+            ld r15, -Z                  ; Load char Z points to into r15, then decrement
+            ld r25, -Y					; Load char Y points to into r25
 
-            adiw ZH:ZL, 1               ; Add 1 to Z to move the char one to the right
-            adiw YH:YL, 1               ; Add 1 to Y to move the char one to the right
+            adiw ZH:ZL, 1					; Add 1 to Z to move the char one to the right, if the first loop we are not at the last character
+            adiw YH:YL, 1					; Add 1 to Y to move the char one to the right
 
             st Z, r15                   ; Store the char from r15 back into Z. Its now shifted one right
             st Y, r25                   ; Store the char from r25 back into Y. Its now shifted one right
 
-            sbiw ZH:ZL, 1               ; Subtract one from Z to get next char (pre-decrement will move to the new char^)
-                                        ; current pointed to value should be old (junk) char
-            sbiw YH:YL, 1               ; Subtract one from Y to get next char (pre-decrement will move to the new char^)
-                                        ; current pointed to value should be old (junk) char
-            cpi ZH, HIGH(2*FIRST_NAME)  ; If the position of Z has returned to the beginning of the first line (end the loop)
+            sbiw ZH:ZL, 1					; Get back to the next character
+            sbiw YH:YL, 1					; Get back to the next character
+
+            cpi ZL,  0x00				; If the position of Z has returned to the beginning of the first line (end the loop)
             brne ShiftChars             ; repeat the loop if Z doesn't point to the beginning yet
         
         st Z, r24                       ; Store the saved char from the end of Z (line 1) into the front of Y (line 2)
         st Y, r13                       ; Store the saved char from the end of Y (line 2) into the front of Z (line 1)
 
-        ldi waitcnt, 100                ; Load the wait time of 1 second into the wait count
+        ldi waitcnt, 50                ; Load the wait time of 1 second into the wait count
         rCall Wait                      ; Call wait function to wait for a second
         rCall LCDWrite                  ; Write the adjusted line to the LCD display
 
