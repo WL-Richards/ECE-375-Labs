@@ -14,6 +14,7 @@
 .def	mpr = r16				; Multipurpose register is required for LCD Driver
 
 .def	waitcnt = r23			; Wait Loop Counter
+.def	loopCount = 30			; Loop counter for the shift of all chars
 .def	ilcnt = r18				; Inner Loop Counter
 .def	olcnt = r19				; Outer Loop Counter
 
@@ -122,40 +123,39 @@ PrintNamesOrder2:
 ; Scroll Names horizontally across LCD display, flipping the lines when they circle around. Do this until the button is released
 ;-----------------------------------------------------------
 ScrollNames:
-        ldi ZL, 0x10					; Store the end of the First Line in register Z, one past the limit cause we pre decrement
-		ldi ZH, 0x01
+        push r25
+        push r24
+        push mpr
 
-        ld r13, -Z						; Load the last char of Z in r13, then decrement
-
-        ldi YL, 0x20					; Store the end of the Second Line in register Y
+        ldi YL, 0x00                    ; Start the Y pointer at the beginning of the first line
         ldi YH, 0x01
 
-        ld r24, -Y                      ; Load the last char of Y in r24, then decrement
+        adiw YH:YL, 30                  ; Move Y pointer to the end (15 mem slots per name)
+        ld r24, Y                       ; Load the last char of Y in r24
 
         ShiftChars:
-            ld r15, -Z                  ; Load char Z points to into r15, then decrement
-            ld r25, -Y					; Load char Y points to into r25
+            ld r25, -Y                  ; Load char Y points to into r25 with a predecrement
 
-            adiw ZH:ZL, 1					; Add 1 to Z to move the char one to the right, if the first loop we are not at the last character
-            adiw YH:YL, 1					; Add 1 to Y to move the char one to the right
+            adiw YH:YL, 1               ; Add 1 to Y to move the char one to the right
 
-            st Z, r15                   ; Store the char from r15 back into Z. Its now shifted one right
             st Y, r25                   ; Store the char from r25 back into Y. Its now shifted one right
 
-            sbiw ZH:ZL, 1					; Get back to the next character
-            sbiw YH:YL, 1					; Get back to the next character
-
-            cpi ZL,  0x00				; If the position of Z has returned to the beginning of the first line (end the loop)
-            brne ShiftChars             ; repeat the loop if Z doesn't point to the beginning yet
+            sbiw YH:YL, 1               ; Subtract one from Y to get next char (pre-decrement will move to the new char^)
+                                        ; current pointed to value should be old (junk) char
+            dec	loopCount		; This should ensure the loop will run for all the chars.
+            brne ShiftChars             ; repeat the loop if Y doesn't point to the beginning yet
         
-        st Z, r24                       ; Store the saved char from the end of Z (line 1) into the front of Y (line 2)
-        st Y, r13                       ; Store the saved char from the end of Y (line 2) into the front of Z (line 1)
+        st Y, r24                       ; Store the saved char from the end of Y (End of line 2) into the front of Y (beginning of line 1)
 
-        ldi waitcnt, 50                ; Load the wait time of 1 second into the wait count
+        ldi waitcnt, 35                 ; Load the wait time of 1 second into the wait count
         rCall Wait                      ; Call wait function to wait for a second
         rCall LCDWrite                  ; Write the adjusted line to the LCD display
 
-	ret                             ; Return to the main
+        pop mpr
+        pop r24
+        pop r25
+
+	    ret                             ; Return to the main
 
 ;-----------------------------------------------------------
 ; Prints the first name out of the program memory when R17 is set to 0xFF it will flip the lines in which the names are wrriten on
