@@ -14,7 +14,7 @@
 .def	mpr = r16				; Multipurpose register is required for LCD Driver
 
 .def	waitcnt = r23			; Wait Loop Counter
-.def	loopCount = 30			; Loop counter for the shift of all chars
+.def	loopCount = r18			; Loop counter for the shift of all chars
 .def	ilcnt = r18				; Inner Loop Counter
 .def	olcnt = r19				; Outer Loop Counter
 
