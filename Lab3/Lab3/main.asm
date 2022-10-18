@@ -13,11 +13,6 @@
 ;***********************************************************
 .def	mpr = r16				; Multipurpose register is required for LCD Driver
 
-.def	waitcnt = r23			; Wait Loop Counter
-.def	loopCount = r18			; Loop counter for the shift of all chars
-.def	ilcnt = r18				; Inner Loop Counter
-.def	olcnt = r19				; Outer Loop Counter
-
 ;***********************************************************
 ;*	Start of Code Segment
 ;***********************************************************
@@ -42,13 +37,14 @@ INIT:							; The initialization routine
 		out	SPH, mpr					; store r16 in stack pointer high
 
 		; Initialize LCD Display
-		rcall LCDInit;
+		rcall LCDInit
 
 		; Initialize Port D buttons
 		ldi		mpr, $00		; Set Port D Data Direction Register
 		out		DDRD, mpr		; for input
 		ldi		mpr, $FF		; Initialize Port D Data Register
 		out		PORTD, mpr		; so all Port D inputs are Tri-State
+
 
 		; NOTE that there is no RET or RJMP from INIT,
 		; this is because the next instruction executed is the
@@ -61,22 +57,23 @@ MAIN:							; The Main program
 
 		; Read the value of PIND into the MPR
 		in mpr, PIND
-
-		; Check if the pin pressed was 4, active LOW, or 0b11101111
+		
+		;; Check if the pin pressed was 4, active LOW, or 0b11101111
 		cpi mpr, 0b11101111
 		breq ClearDisplay
-
-		; Check if the pin pressed was 5, active LOW, or 0b11011111
+		
+		;; Check if the pin pressed was 5, active LOW, or 0b11011111
 		cpi mpr, 0b11011111
 		breq PrintNamesOrder1
-
-		; Check if the pin pressed was 6, active LOW, or 0b10111111
+		
+		;; Check if the pin pressed was 6, active LOW, or 0b10111111
 		cpi mpr, 0b10111111
 		breq PrintNamesOrder2
-
-        ; Check if the pin pressed was 7, active LOW, or 0b01111111
+		
+        ;; Check if the pin pressed was 7, active LOW, or 0b01111111
         cpi mpr, 0b01111111
         breq ScrollNames
+		;rcall ScrollNames
 
 		rjmp	MAIN			; jump back to main and create an infinite
 								; while loop.  Generally, every main program is an
@@ -105,7 +102,7 @@ PrintNamesOrder1:
 	rcall FirstName
 	rcall SecondName
 	rcall LCDWrite
-	ret
+	jmp MAIN
 
 ;-----------------------------------------------------------
 ; Prints the names in the second order
@@ -117,45 +114,46 @@ PrintNamesOrder2:
 	rcall FirstName
 	rcall SecondName
 	rcall LCDWrite
-	ret
+	
 
 ;-----------------------------------------------------------
 ; Scroll Names horizontally across LCD display, flipping the lines when they circle around. Do this until the button is released
 ;-----------------------------------------------------------
 ScrollNames:
-        push r25
-        push r24
-        push mpr
+        ldi XL, 0x10					; Store the end of the First Line in register Z, one past the limit cause we pre decrement
+		ldi XH, 0x01
 
-        ldi YL, 0x00                    ; Start the Y pointer at the beginning of the first line
+        ld r13, -X						; Load the last char of Z in r13, then decrement
+
+        ldi YL, 0x20					; Store the end of the Second Line in register Y
         ldi YH, 0x01
 
-        adiw YH:YL, 30                  ; Move Y pointer to the end (15 mem slots per name)
-        ld r24, Y                       ; Load the last char of Y in r24
+        ld r24, -Y                      ; Load the last char of Y in r24, then decrement
 
         ShiftChars:
-            ld r25, -Y                  ; Load char Y points to into r25 with a predecrement
+            ld r15, -X                  ; Load char Z points to into r15, then decrement
+            ld r25, -Y					; Load char Y points to into r25
 
-            adiw YH:YL, 1               ; Add 1 to Y to move the char one to the right
+            adiw XH:XL, 1					; Add 1 to Z to move the char one to the right, if the first loop we are not at the last character
+            adiw YH:YL, 1					; Add 1 to Y to move the char one to the right
 
+            st X, r15                   ; Store the char from r15 back into Z. Its now shifted one right
             st Y, r25                   ; Store the char from r25 back into Y. Its now shifted one right
 
-            sbiw YH:YL, 1               ; Subtract one from Y to get next char (pre-decrement will move to the new char^)
-                                        ; current pointed to value should be old (junk) char
-            dec	loopCount		; This should ensure the loop will run for all the chars.
-            brne ShiftChars             ; repeat the loop if Y doesn't point to the beginning yet
-        
-        st Y, r24                       ; Store the saved char from the end of Y (End of line 2) into the front of Y (beginning of line 1)
+            sbiw XH:XL, 1					; Get back to the next character
+            sbiw YH:YL, 1					; Get back to the next character
 
-        ldi waitcnt, 35                 ; Load the wait time of 1 second into the wait count
+            cpi XL,  0x00				; If the position of Z has returned to the beginning of the first line (end the loop)
+            brne ShiftChars             ; repeat the loop if Z doesn't point to the beginning yet
+        
+        st X, r24                       ; Store the saved char from the end of Z (line 1) into the front of Y (line 2)
+        st Y, r13                       ; Store the saved char from the end of Y (line 2) into the front of Z (line 1)
+
+        ldi r23, 50                ; Load the wait time of 1 second into the wait count
         rCall Wait                      ; Call wait function to wait for a second
         rCall LCDWrite                  ; Write the adjusted line to the LCD display
 
-        pop mpr
-        pop r24
-        pop r25
-
-	    ret                             ; Return to the main
+	jmp MAIN                             ; Return to the main
 
 ;-----------------------------------------------------------
 ; Prints the first name out of the program memory when R17 is set to 0xFF it will flip the lines in which the names are wrriten on
@@ -228,22 +226,22 @@ SecondName:
 ;			(((((3*ilcnt)-1+4)*olcnt)-1+4)*waitcnt)-1+16
 ;----------------------------------------------------------------
 Wait:
-	push	waitcnt			; Save wait register
-	push	ilcnt			; Save ilcnt register
-	push	olcnt			; Save olcnt register
+	push	r23			; Save wait register
+	push	r18			; Save ilcnt register
+	push	r19			; Save olcnt register
 
-Loop:	ldi		olcnt, 224		; load olcnt register
-OLoop:	ldi		ilcnt, 237		; load ilcnt register
-ILoop:	dec		ilcnt			; decrement ilcnt
+Loop:	ldi		r19, 224		; load olcnt register
+OLoop:	ldi		r18, 237		; load ilcnt register
+ILoop:	dec		r18			; decrement ilcnt
 	brne	ILoop			; Continue Inner Loop
-	dec		olcnt		; decrement olcnt
+	dec		r19		; decrement olcnt
 	brne	OLoop			; Continue Outer Loop
-	dec		waitcnt		; Decrement wait
+	dec		r23		; Decrement wait
 	brne	Loop			; Continue Wait loop
 
-	pop		olcnt		; Restore olcnt register
-	pop		ilcnt		; Restore ilcnt register
-	pop		waitcnt		; Restore wait register
+	pop		r19		; Restore olcnt register
+	pop		r18		; Restore ilcnt register
+	pop		r23		; Restore wait register
 	ret				; Return from subroutine
 
 
