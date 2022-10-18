@@ -73,7 +73,6 @@ MAIN:							; The Main program
         ;; Check if the pin pressed was 7, active LOW, or 0b01111111
         cpi mpr, 0b01111111
         breq ScrollNames
-		;rcall ScrollNames
 
 		rjmp	MAIN			; jump back to main and create an infinite
 								; while loop.  Generally, every main program is an
@@ -120,10 +119,10 @@ PrintNamesOrder2:
 ; Scroll Names horizontally across LCD display, flipping the lines when they circle around. Do this until the button is released
 ;-----------------------------------------------------------
 ScrollNames:
-        ldi XL, 0x10					; Store the end of the First Line in register Z, one past the limit cause we pre decrement
+        ldi XL, 0x10					; Store the end of the First Line in register X, one past the limit cause we pre decrement
 		ldi XH, 0x01
 
-        ld r13, -X						; Load the last char of Z in r13, then decrement
+        ld r13, -X						; Load the last char of X in r13
 
         ldi YL, 0x20					; Store the end of the Second Line in register Y
         ldi YH, 0x01
@@ -131,25 +130,25 @@ ScrollNames:
         ld r24, -Y                      ; Load the last char of Y in r24, then decrement
 
         ShiftChars:
-            ld r15, -X                  ; Load char Z points to into r15, then decrement
+            ld r15, -X                  ; Load char X points to into r15, then decrement
             ld r25, -Y					; Load char Y points to into r25
 
-            adiw XH:XL, 1					; Add 1 to Z to move the char one to the right, if the first loop we are not at the last character
-            adiw YH:YL, 1					; Add 1 to Y to move the char one to the right
+            adiw XH:XL, 1				; Add 1 to X to move the char one to the right, if the first loop we are not at the last character
+            adiw YH:YL, 1				; Add 1 to Y to move the char one to the right
 
-            st X, r15                   ; Store the char from r15 back into Z. Its now shifted one right
+            st X, r15                   ; Store the char from r15 back into X. Its now shifted one right
             st Y, r25                   ; Store the char from r25 back into Y. Its now shifted one right
 
-            sbiw XH:XL, 1					; Get back to the next character
-            sbiw YH:YL, 1					; Get back to the next character
+            sbiw XH:XL, 1				; Get back to the next character
+            sbiw YH:YL, 1				; Get back to the next character
 
-            cpi XL,  0x00				; If the position of Z has returned to the beginning of the first line (end the loop)
-            brne ShiftChars             ; repeat the loop if Z doesn't point to the beginning yet
+            cpi XL,  0x00				; If the position of X has returned to the beginning of the first line (end the loop)
+            brne ShiftChars             ; repeat the loop if X doesn't point to the beginning yet
         
-        st X, r24                       ; Store the saved char from the end of Z (line 1) into the front of Y (line 2)
+        st X, r24                       ; Store the saved char from the end of X (line 1) into the front of Y (line 2)
         st Y, r13                       ; Store the saved char from the end of Y (line 2) into the front of Z (line 1)
 
-        ldi r23, 50                ; Load the wait time of 1 second into the wait count
+        ldi r23, 50						; Load the wait time of 1 second into the wait count
         rCall Wait                      ; Call wait function to wait for a second
         rCall LCDWrite                  ; Write the adjusted line to the LCD display
 
