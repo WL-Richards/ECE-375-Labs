@@ -1,0 +1,66 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega128"</DEVICE>
+ <WORKING_DIR>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m128def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\Debug\Lab4.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Lab4.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Lab4.map</FILE>
+  <FILE>Lab4.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <INIT><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>41</LINE></INIT>
+  <MAIN><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>58</LINE></MAIN>
+  <COMPOUND><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>365</LINE></COMPOUND>
+  <DONE><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>82</LINE></DONE>
+  <LoadMul24><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>94</LINE></LoadMul24>
+  <OperandE1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>573</LINE></OperandE1>
+  <MulAddrA><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>600</LINE></MulAddrA>
+  <MulAddrB><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>601</LINE></MulAddrB>
+  <OperandF1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>577</LINE></OperandF1>
+  <LoadAdd16><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>134</LINE></LoadAdd16>
+  <OperandA><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>561</LINE></OperandA>
+  <ADD16_OP1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>607</LINE></ADD16_OP1>
+  <ADD16_OP2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>609</LINE></ADD16_OP2>
+  <OperandB><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>563</LINE></OperandB>
+  <LoadSub16><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>169</LINE></LoadSub16>
+  <OperandC><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>567</LINE></OperandC>
+  <SUB16_OP1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>618</LINE></SUB16_OP1>
+  <SUB16_OP2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>620</LINE></SUB16_OP2>
+  <OperandD><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>569</LINE></OperandD>
+  <ADD16><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>206</LINE></ADD16>
+  <ADD16_Result><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>613</LINE></ADD16_Result>
+  <EXIT_ADD><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>235</LINE></EXIT_ADD>
+  <SUB16><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>243</LINE></SUB16>
+  <SUB16_Result><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>624</LINE></SUB16_Result>
+  <EXIT_SUB><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>272</LINE></EXIT_SUB>
+  <MUL24><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>280</LINE></MUL24>
+  <MulAddrRes><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>602</LINE></MulAddrRes>
+  <MUL24_OLOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>308</LINE></MUL24_OLOOP>
+  <MUL24_ILOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>316</LINE></MUL24_ILOOP>
+  <OperandG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>583</LINE></OperandG>
+  <OperandH><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>585</LINE></OperandH>
+  <OperandI><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>587</LINE></OperandI>
+  <MUL16><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>482</LINE></MUL16>
+  <MUL16_OLOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>509</LINE></MUL16_OLOOP>
+  <addrA><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>595</LINE></addrA>
+  <MUL16_ILOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>516</LINE></MUL16_ILOOP>
+  <OperandE2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>575</LINE></OperandE2>
+  <OperandF2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>579</LINE></OperandF2>
+  <addrB><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>596</LINE></addrB>
+  <LAddrP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm</FILE><LINE>597</LINE></LAddrP>
+ </LABELS>
+</ASSEMBLER_INFO>
