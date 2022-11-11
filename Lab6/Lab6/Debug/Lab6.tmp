@@ -1,0 +1,34 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega32U4"</DEVICE>
+ <WORKING_DIR>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m32U4def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\Debug\Lab6.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Lab6.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Lab6.map</FILE>
+  <FILE>Lab6.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <INIT><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\main.asm</FILE><LINE>56</LINE></INIT>
+  <SPEED_UP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\main.asm</FILE><LINE>126</LINE></SPEED_UP>
+  <SPEED_DOWN><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\main.asm</FILE><LINE>156</LINE></SPEED_DOWN>
+  <SPEED_MAX><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\main.asm</FILE><LINE>187</LINE></SPEED_MAX>
+  <MAIN><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\main.asm</FILE><LINE>111</LINE></MAIN>
+  <SKIP_ADD><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\main.asm</FILE><LINE>141</LINE></SKIP_ADD>
+  <SET_COMPARE><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\main.asm</FILE><LINE>207</LINE></SET_COMPARE>
+  <SKIP_SUB><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab6\Lab6\main.asm</FILE><LINE>172</LINE></SKIP_SUB>
+ </LABELS>
+</ASSEMBLER_INFO>
