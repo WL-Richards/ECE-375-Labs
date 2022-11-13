@@ -14,10 +14,9 @@
 ;***********************************************************
 .def	mpr = r16							; Multipurpose register
 .def	pwm_speed = r17						; Controls the pulse length
-.def	speed_level = r18					; Current speed
+.def	speed_level = r18					; Current speed on the lower nibble of PORTB
 .def	change_speed = r19					; Register for adjusting the speed
-.def	speed_display = r20					; This is what displays on the lower 4 LEDs
-.def	zero = r21							; Register for loading high byte of OCR1n registers
+.def	zero = r20							; Register for loading high byte of OCR1n registers
 
 .equ	EngEnR = 5							; right Engine Enable Bit
 .equ	EngEnL = 6							; left Engine Enable Bit
