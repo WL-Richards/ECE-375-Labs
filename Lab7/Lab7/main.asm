@@ -23,9 +23,17 @@
 .def	loop_count = r17		; Timer counter loops
 .def	transmit_byte = r18		; Byte that will be transmitted
 .def	recv_byte = r19			; Byte that will be received by the device
+.def	game_state = r23		; State of the current game
+
+; Game State is held on both devices and different numbers are equivelent to different states
+; 0x00 - Waiting for user to start
+; 0x01 - Waiting for opponenet
+; 0x02 - Game Start
+
+.def	item_selection = r24	; What item we select to use
 
 ; Use this signal code between two boards for their game ready
-.equ    SendReady = 0b11111111
+.equ    SendReady = 0xFF
 
 ;***********************************************************
 ;*  Start of Code Segment
@@ -44,9 +52,10 @@
 		reti
 
 ; Triggered when the data register is empty
-.org	$0034
-		rcall TRANSMIT
-		reti
+; We may not want to transmit every time
+;.org	$0034
+;		rcall TRANSMIT
+;		reti
 
 .org    $0056						; End of Interrupt Vectors
 
@@ -102,12 +111,17 @@ INIT:
 
 	; Initialize LCD Display
 	rcall LCDInit
+	rcall LCDClr
 
 	; Print the welcome message to the screen
 	rcall LOAD_WELCOME_MSG
 
-	;Other
+	; Write the welcome message to the LCD 
+	rcall LCDWrite
+
+	; Clear registers that need to have a known initial stat
 	clr loop_count
+	clr item_selection ; Start at zero but the numbers actually start at one so the first time we call it prints rock
 
 	; Globally enable interrupts
 	sei
@@ -117,12 +131,16 @@ INIT:
 ;*  Main Program
 ;***********************************************************
 MAIN:
+	cpi game_state, 0x02
 	rjmp	MAIN
 
 ;***********************************************************
 ;*	Functions and Subroutines
 ;***********************************************************
 
+;***********************************************************
+;*	Transmit the data that is currently in the transmit_byte
+;***********************************************************
 TRANSMIT:
 	; Read all data from UDR1
 	lds mpr, UCSR1A
@@ -133,31 +151,13 @@ TRANSMIT:
 	sts UDR1, transmit_byte
 	ret
 
+;***********************************************************
+;*	Read whatever data is waiting into the recv_byte
+;***********************************************************
 RECEIVE:
 	lds recv_byte, UDR1
 	ret
 
-; This should load the Welcome Message from Program memory into the LCD display area
-LOAD_WELCOME_MSG:
-
-	; Clear LCD to start
-	rcall LCDClr
-
-	ldi XL, 0x00
-	ldi XH, 0x01
-
-	ldi ZL, low(STRING_WELCOME_START<<1)
-	ldi ZH, high(STRING_WELCOME_START<<1)
-
-	; Loop to load in all the data
-	WELCOME_MSG_LOOP:
-		lpm mpr, Z+
-		st X+, mpr
-
-		cpi ZL, low(STRING_WELCOME_END<<1)
-		brne WELCOME_MSG_LOOP
-
-	ret
 
 ;***********************************************************
 ;*	Wait for One and a Half seconds before returning
@@ -190,7 +190,7 @@ WAIT_ONE_HALF_SECOND:
 		dec loop_count
 
 	; Check if we need to break out of the loop
-	cpi loop_count, 0
+	cpi loop_count, 0x00
 	brne WAIT_HALF_SECOND
 
 	pop mpr
@@ -198,61 +198,40 @@ WAIT_ONE_HALF_SECOND:
 	pop mpr
 	ret
 
+
 ;***********************************************************
-;*	Stored Program Data
+;*	Switch between each of the possible items we can use
 ;***********************************************************
+CYLCE_SELCTION:
+	; Increment item_selection by one
+	inc item_selection
 
-;-----------------------------------------------------------
-; An example of storing a string. Note the labels before and
-; after the .DB directive; these can help to access the data
-;-----------------------------------------------------------
+	cpi item_selection, 0x01
+	breq ROCK
 
-; Welcome Message
-STRING_WELCOME_START:
-    .DB		"Welcome!        Please press PD7"		
-STRING_WELCOME_END:
+	cpi item_selection, 0x02
+	breq PAPER
 
-; Rock
-STRING_ROCK_START:
-    .DB		"Rock            "
-STRING_ROCK_END:
+	cpi item_selection, 0x03
+	breq SCISSORS
 
-; Paper
-STRING_PAPER_START:
-    .DB		"Paper           "
-STRING_PAPER_END:
+	ROCK:
+		rcall LOAD_ROCK_MSG
+		rcall LCDWrLn2
+		ret
 
-; Scissors
-STRING_SCISSORS_START:
-    .DB		"Scissors        "		
-STRING_SCISSORS_END:
+	PAPER:
+		rcall LOAD_PAPER_MSG
+		rcall LCDWrLn2
+		ret
 
-; Waiting For Opponent 
-STRING_OPPONENT_START:
-    .DB		"READY, Waiting  for the opponent"		
-STRING_OPPONENT_END:
-
-; Game Start
-STRING_GAME_START:
-    .DB		"GAME START      "
-STRING_GAME_END:
-
-; You Won!
-STRING_WON_START:
-    .DB		"You Won!        "
-STRING_WON_END:
-
-; You Lost!
-STRING_LOST_START:
-    .DB		"You Lost.       "
-STRING_LOST_END:
-
-; Draw
-STRING_DRAW_START:
-    .DB		"Draw            "
-STRING_DRAW_END:
-
+	SCISSORS:
+		rcall LOAD_SCISSORS_MSG
+		rcall LCDWrLn2
+		ldi item_secltion, 0x00
+		ret
 ;***********************************************************
 ;*	Additional Program Includes
 ;***********************************************************
 .include "LCDDriver.asm"		; Include the LCD Driver
+.include "StringManager.asm"	; Seperate file to handle all of the strings that need to be printed
