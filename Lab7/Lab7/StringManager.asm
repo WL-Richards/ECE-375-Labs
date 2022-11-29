@@ -182,6 +182,63 @@ LOAD_SCISSORS_MSG:
 
 	ret
 
+; This should load the rock message 
+LOAD_TOP_ROCK_MSG:
+
+	ldi XL, 0x00
+	ldi XH, 0x01
+
+	ldi ZL, low(STRING_ROCK_START<<1)
+	ldi ZH, high(STRING_ROCK_START<<1)
+
+	; Loop to load in all the data
+	ROCK_TOP_MSG_LOOP:
+		lpm mpr, Z+
+		st X+, mpr
+
+		cpi ZL, low(STRING_ROCK_END<<1)
+		brne ROCK_TOP_MSG_LOOP
+
+	ret
+
+; This should load the paper message
+LOAD_TOP_PAPER_MSG:
+
+	ldi XL, 0x00
+	ldi XH, 0x01
+
+	ldi ZL, low(STRING_PAPER_START<<1)
+	ldi ZH, high(STRING_PAPER_START<<1)
+
+	; Loop to load in all the data
+	PAPER_TOP_MSG_LOOP:
+		lpm mpr, Z+
+		st X+, mpr
+
+		cpi ZL, low(STRING_PAPER_END<<1)
+		brne PAPER_TOP_MSG_LOOP
+
+	ret
+
+; This should load the paper message
+LOAD_TOP_SCISSORS_MSG:
+
+	ldi XL, 0x00
+	ldi XH, 0x01
+
+	ldi ZL, low(STRING_SCISSORS_START<<1)
+	ldi ZH, high(STRING_SCISSORS_START<<1)
+
+	; Loop to load in all the data
+	SCISSORS_TOP_MSG_LOOP:
+		lpm mpr, Z+
+		st X+, mpr
+
+		cpi ZL, low(STRING_SCISSORS_END<<1)
+		brne SCISSORS_TOP_MSG_LOOP
+
+	ret
+
 
 ;***********************************************************
 ;*	Stored Program Data
