@@ -179,7 +179,6 @@ HandleRightHit:							; Begin a function with a label
 ; Desc: Acts as the right whisker's ISR
 ;-----------------------------------------------------------
 HandleLeftHit:							; Begin a function with a label
-
 		push	mpr					; Save mpr register
 		push	waitcnt				; Save wait register
 		in		mpr, SREG			; Save program state

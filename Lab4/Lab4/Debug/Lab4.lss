@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm Mon Oct 31 21:53:57 2022
+AVRASM ver. 2.2.8  C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm Wed Nov 02 16:42:35 2022
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m128def.inc'
 C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m128def.inc'
@@ -1232,7 +1232,7 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  ;*
                                  ;***********************************************************
                                  
-                                 .include "m128def.inc"			; Include definition file
+                                 .include "m128def.inc"					; Include definition file
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega128.xml ***********
                                  ;*************************************************************************
@@ -1280,34 +1280,34 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  ;***********************************************************
                                  ;*	Internal Register Definitions and Constants
                                  ;***********************************************************
-                                 .def	mpr = r16				; Multipurpose register
-                                 .def	rlo = r0				; Low byte of MUL result
-                                 .def	rhi = r1				; High byte of MUL result
-                                 .def	zero = r2				; Zero register, set to zero in INIT, useful for calculations
-                                 .def	A = r3					; A variable
-                                 .def	B = r4					; Another variable
+                                 .def	mpr = r16						; Multipurpose register
+                                 .def	rlo = r0						; Low byte of MUL result
+                                 .def	rhi = r1						; High byte of MUL result
+                                 .def	zero = r2						; Zero register, set to zero in INIT, useful for calculations
+                                 .def	A = r3							; A variable
+                                 .def	B = r4							; Another variable
                                  
-                                 .def	oloop = r17				; Outer Loop Counter
-                                 .def	iloop = r18				; Inner Loop Counter
+                                 .def	oloop = r17						; Outer Loop Counter
+                                 .def	iloop = r18						; Inner Loop Counter
                                  
                                  
                                  ;***********************************************************
                                  ;*	Start of Code Segment
                                  ;***********************************************************
-                                 .cseg							; Beginning of code segment
+                                 .cseg									; Beginning of code segment
                                  
                                  ;-----------------------------------------------------------
                                  ; Interrupt Vectors
                                  ;-----------------------------------------------------------
-                                 .org	$0000					; Beginning of IVs
-000000 c055                      		rjmp 	INIT			; Reset interrupt
+                                 .org	$0000							; Beginning of IVs
+000000 c055                      		rjmp 	INIT					; Reset interrupt
                                  
-                                 .org	$0056					; End of Interrupt Vectors
+                                 .org	$0056							; End of Interrupt Vectors
                                  
                                  ;-----------------------------------------------------------
                                  ; Program Initialization
                                  ;-----------------------------------------------------------
-                                 INIT:							; The initialization routine
+                                 INIT:									; The initialization routine
                                  
                                  		; Initialize Stack Pointer
 000056 ef0f                      		ldi mpr,low(RAMEND)
@@ -1317,9 +1317,7 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  
                                  		; TODO
                                  
-00005a 2422                      		clr		zero			; Set the zero register to zero, maintain
-                                 										; these semantics, meaning, don't
-                                 										; load anything else into it.
+00005a 2422                      		clr		zero					; Set the zero register to zero
                                  
                                  ;-----------------------------------------------------------
                                  ; Main Program
@@ -1340,16 +1338,16 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  		;rcall Sub16 ; Check SUB16 result (Set Break point here #4)
                                  
                                  		; Call function to load MUL24 operands
-                                 		;rcall LoadMul24 ; Check load MUL24 operands (Set Break point here #5)
+00005b d002                      		rcall LoadMul24 ; Check load MUL24 operands (Set Break point here #5)
                                  
                                  		; Call MUL24 function to display its results (calculate FFFFFF * FFFFFF)
-                                 		;rcall MUL24; Check MUL24 result (Set Break point here #6)
+00005c d05c                      		rcall MUL24; Check MUL24 result (Set Break point here #6)
                                  
                                  		; Call the COMPOUND function
-00005b d093                      		rcall COMPOUND ; Check COMPOUND result (Set Break point here #8)
+                                 		;rcall COMPOUND ; Check COMPOUND result (Set Break point here #8)
                                  
-00005c cfff                      DONE:	rjmp	DONE			; Create an infinite while loop to signify the
-                                 								; end of the program.
+00005d cfff                      DONE:	rjmp	DONE					; Create an infinite while loop to signify the
+                                 										; end of the program.
                                  
                                  ;***********************************************************
                                  ;*	Functions and Subroutines
@@ -1360,110 +1358,110 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  ; Func: LoadMul24
                                  ; Desc: Load values from program memory for multiplying
                                  ;-----------------------------------------------------------
-                                 LoadMul24:							; Begin a function with a label
+                                 LoadMul24:								; Begin a function with a label
                                  
                                  		; Load Operand A Address into Z
-00005d ece4                      		ldi ZL, low(2*OperandE1)
-00005e e0f2                      		ldi ZH, high(2*OperandE1)
+00005e e5e8                      		ldi ZL, low(2*OperandE1)
+00005f e0f2                      		ldi ZH, high(2*OperandE1)
                                  
                                  		; Load beginning address of first operand into X
-00005f e1a0                      		ldi XL, low(MulAddrA)	; Load low byte of address
-000060 e0b1                      		ldi	XH, high(MulAddrA)	; Load high byte of address
+000060 e1a0                      		ldi XL, low(MUL24_OP1)			; Load low byte of address
+000061 e0b1                      		ldi	XH, high(MUL24_OP1)			; Load high byte of address
                                  
                                  		; Load beginning address of second operand into Y
-000061 e1c3                      		ldi		YL, low(MulAddrB)	; Load low byte of address
-000062 e0d1                      		ldi		YH, high(MulAddrB)	; Load high byte of address
+000062 e1c3                      		ldi		YL, low(MUL24_OP2)		; Load low byte of address
+000063 e0d1                      		ldi		YH, high(MUL24_OP2)		; Load high byte of address
                                  
                                  		; Load the 2 bytes from 
-000063 9035                      		lpm A, Z+
-000064 923d                      		ST X+, A
-000065 9035                      		lpm A, Z+
-000066 923d                      		ST X+, A
-000067 9034                      		lpm A, Z
-000068 923c                      		ST X, A
+000064 9035                      		lpm A, Z+
+000065 923d                      		ST X+, A
+000066 9035                      		lpm A, Z+
+000067 923d                      		ST X+, A
+000068 9034                      		lpm A, Z
+000069 923c                      		ST X, A
                                  		
                                  
-000069 ece8                      		ldi ZL, low(2*OperandF1)
-00006a e0f2                      		ldi ZH, high(2*OperandF1)
+00006a e5ec                      		ldi ZL, low(2*OperandF1)
+00006b e0f2                      		ldi ZH, high(2*OperandF1)
                                  
-00006b 9035                      		lpm A, Z+
-00006c 9239                      		ST Y+, A
-00006d 9035                      		lpm A, Z+
-00006e 9239                      		ST Y+, A
-00006f 9034                      		lpm A, Z
-000070 8238                      		ST Y, A
+00006c 9035                      		lpm A, Z+
+00006d 9239                      		ST Y+, A
+00006e 9035                      		lpm A, Z+
+00006f 9239                      		ST Y+, A
+000070 9034                      		lpm A, Z
+000071 8238                      		ST Y, A
                                  		
                                  		 
-000071 9508                      		ret						; End a function with RET
+000072 9508                      		ret								; End a function with RET
                                  
                                  ;-----------------------------------------------------------
                                  ; Func: LoadAdd16
                                  ; Desc: Load values from program memory for adding
                                  ;-----------------------------------------------------------
-                                 LoadAdd16:							; Begin a function with a label
+                                 LoadAdd16:								; Begin a function with a label
                                  
                                  		; Load Operand A Address into Z
-000072 ebec                      		ldi ZL, low(2*OperandA)
-000073 e0f2                      		ldi ZH, high(2*OperandA)
+000073 e5e0                      		ldi ZL, low(2*OperandA)
+000074 e0f2                      		ldi ZH, high(2*OperandA)
                                  
                                  		; Load beginning address of first operand into X
-000074 e2a0                      		ldi XL, low(ADD16_OP1)	; Load low byte of address
-000075 e0b1                      		ldi	XH, high(ADD16_OP1)	; Load high byte of address
+000075 e2a0                      		ldi XL, low(ADD16_OP1)			; Load low byte of address
+000076 e0b1                      		ldi	XH, high(ADD16_OP1)			; Load high byte of address
                                  
                                  		; Load beginning address of second operand into Y
-000076 e2c2                      		ldi		YL, low(ADD16_OP2)	; Load low byte of address
-000077 e0d1                      		ldi		YH, high(ADD16_OP2)	; Load high byte of address
+000077 e2c2                      		ldi		YL, low(ADD16_OP2)		; Load low byte of address
+000078 e0d1                      		ldi		YH, high(ADD16_OP2)		; Load high byte of address
                                  
                                  		; Load the 2 bytes from 
-000078 9035                      		lpm A, Z+
-000079 923d                      		ST X+, A
-00007a 9034                      		lpm A, Z
-00007b 923c                      		ST X, A
+000079 9035                      		lpm A, Z+
+00007a 923d                      		ST X+, A
+00007b 9034                      		lpm A, Z
+00007c 923c                      		ST X, A
                                  
-00007c ebee                      		ldi ZL, low(2*OperandB)
-00007d e0f2                      		ldi ZH, high(2*OperandB)
+00007d e5e2                      		ldi ZL, low(2*OperandB)
+00007e e0f2                      		ldi ZH, high(2*OperandB)
                                  
-00007e 9035                      		lpm A, Z+
-00007f 9239                      		ST Y+, A
-000080 9034                      		lpm A, Z
-000081 8238                      		ST Y, A
+00007f 9035                      		lpm A, Z+
+000080 9239                      		ST Y+, A
+000081 9034                      		lpm A, Z
+000082 8238                      		ST Y, A
                                  		 
-000082 9508                      		ret						; End a function with RET
+000083 9508                      		ret								; End a function with RET
                                  
                                  
                                  ;-----------------------------------------------------------
                                  ; Func: LoadSub16
                                  ; Desc: Load values from program memory for subtraction
                                  ;-----------------------------------------------------------
-                                 LoadSub16:							; Begin a function with a label
+                                 LoadSub16:								; Begin a function with a label
                                  
                                  		; Load Operand A Address into Z
-000083 ece0                      		ldi ZL, low(2*OperandC)
-000084 e0f2                      		ldi ZH, high(2*OperandC)
+000084 e5e4                      		ldi ZL, low(2*OperandC)
+000085 e0f2                      		ldi ZH, high(2*OperandC)
                                  
                                  		; Load beginning address of first operand into X
-000085 e4a0                      		ldi XL, low(SUB16_OP1)	; Load low byte of address
-000086 e0b1                      		ldi	XH, high(SUB16_OP1)	; Load high byte of address
+000086 e4a0                      		ldi XL, low(SUB16_OP1)			; Load low byte of address
+000087 e0b1                      		ldi	XH, high(SUB16_OP1)			; Load high byte of address
                                  
                                  		; Load beginning address of second operand into Y
-000087 e4c2                      		ldi		YL, low(SUB16_OP2)	; Load low byte of address
-000088 e0d1                      		ldi		YH, high(SUB16_OP2)	; Load high byte of address
+000088 e4c2                      		ldi		YL, low(SUB16_OP2)		; Load low byte of address
+000089 e0d1                      		ldi		YH, high(SUB16_OP2)		; Load high byte of address
                                  
                                  		; Load the 2 bytes from 
-000089 9035                      		lpm A, Z+
-00008a 923d                      		ST X+, A
-00008b 9034                      		lpm A, Z
-00008c 923c                      		ST X, A
+00008a 9035                      		lpm A, Z+
+00008b 923d                      		ST X+, A
+00008c 9034                      		lpm A, Z
+00008d 923c                      		ST X, A
                                  
-00008d ece2                      		ldi ZL, low(2*OperandD)
-00008e e0f2                      		ldi ZH, high(2*OperandD)
+00008e e5e6                      		ldi ZL, low(2*OperandD)
+00008f e0f2                      		ldi ZH, high(2*OperandD)
                                  
-00008f 9035                      		lpm A, Z+
-000090 9239                      		ST Y+, A
-000091 9034                      		lpm A, Z
-000092 8238                      		ST Y, A
+000090 9035                      		lpm A, Z+
+000091 9239                      		ST Y+, A
+000092 9034                      		lpm A, Z
+000093 8238                      		ST Y, A
                                  		 
-000093 9508                      		ret						; End a function with RET
+000094 9508                      		ret								; End a function with RET
                                  
                                  
                                  ;-----------------------------------------------------------
@@ -1474,35 +1472,35 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  ;-----------------------------------------------------------
                                  ADD16:
                                  		; Load beginning address of first operand into X
-000094 e2a0                      		ldi		XL, low(ADD16_OP1)	; Load low byte of address
-000095 e0b1                      		ldi		XH, high(ADD16_OP1)	; Load high byte of address
+000095 e2a0                      		ldi		XL, low(ADD16_OP1)		; Load low byte of address
+000096 e0b1                      		ldi		XH, high(ADD16_OP1)		; Load high byte of address
                                  
                                  		; Load beginning address of second operand into Y
-000096 e2c2                      		ldi		YL, low(ADD16_OP2)	; Load low byte of address
-000097 e0d1                      		ldi		YH, high(ADD16_OP2)	; Load high byte of address
+000097 e2c2                      		ldi		YL, low(ADD16_OP2)		; Load low byte of address
+000098 e0d1                      		ldi		YH, high(ADD16_OP2)		; Load high byte of address
                                  
                                  		; Load beginning address of result into Z
-000098 e3e0                      		ldi		ZL, low(ADD16_Result)	; Load low byte of address
-000099 e0f1                      		ldi		ZH, high(ADD16_Result)	; Load high byte of address
+000099 e3e0                      		ldi		ZL, low(ADD16_Result)	; Load low byte of address
+00009a e0f1                      		ldi		ZH, high(ADD16_Result)	; Load high byte of address
                                  
                                  		; Execute the function
                                  		; First Byte 
-00009a 903d                      		ld r3, X+				; Load first low byte into A
-00009b 9049                      		ld r4, Y+				; Load first high byte into B
-00009c 0c34                      		ADD r3, r4				; Add second low byte to first
-00009d 9231                      		ST Z+, r3
+00009b 903d                      		ld r3, X+						; Load first low byte into A
+00009c 9049                      		ld r4, Y+						; Load first high byte into B
+00009d 0c34                      		ADD r3, r4						; Add second low byte to first
+00009e 9231                      		ST Z+, r3
                                  
                                  		; Second Byte
-00009e 903c                      		ld r3, X				; Load first low byte into A
-00009f 8048                      		ld r4, Y				; Load first high byte into B
-0000a0 1c34                      		ADC r3, r4				; Add second low byte to first
-0000a1 9231                      		ST Z+, r3
-0000a2 f410                      		brcc EXIT_ADD
-0000a3 e001                      		ldi mpr, 0x01
-0000a4 8300                      		ST Z, mpr
+00009f 903c                      		ld r3, X						; Load first low byte into A
+0000a0 8048                      		ld r4, Y						; Load first high byte into B
+0000a1 1c34                      		ADC r3, r4						; Add second low byte to first
+0000a2 9231                      		ST Z+, r3
+0000a3 f410                      		brcc EXIT_ADD
+0000a4 e001                      		ldi mpr, 0x01
+0000a5 8300                      		ST Z, mpr
                                  
                                  		EXIT_ADD:
-0000a5 9508                      			ret						; End a function with RET
+0000a6 9508                      			ret							; End a function with RET
                                  
                                  ;-----------------------------------------------------------
                                  ; Func: SUB16
@@ -1511,35 +1509,35 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  ;-----------------------------------------------------------
                                  SUB16:
                                  		; Load beginning address of first operand into X
-0000a6 e4a0                      		ldi		XL, low(SUB16_OP1)	; Load low byte of address
-0000a7 e0b1                      		ldi		XH, high(SUB16_OP1)	; Load high byte of address
+0000a7 e4a0                      		ldi		XL, low(SUB16_OP1)		; Load low byte of address
+0000a8 e0b1                      		ldi		XH, high(SUB16_OP1)		; Load high byte of address
                                  
                                  		; Load beginning address of second operand into Y
-0000a8 e4c2                      		ldi		YL, low(SUB16_OP2)	; Load low byte of address
-0000a9 e0d1                      		ldi		YH, high(SUB16_OP2)	; Load high byte of address
+0000a9 e4c2                      		ldi		YL, low(SUB16_OP2)		; Load low byte of address
+0000aa e0d1                      		ldi		YH, high(SUB16_OP2)		; Load high byte of address
                                  
                                  		; Load beginning address of result into Z
-0000aa e5e0                      		ldi		ZL, low(SUB16_Result)	; Load low byte of address
-0000ab e0f1                      		ldi		ZH, high(SUB16_Result)	; Load high byte of address
+0000ab e5e0                      		ldi		ZL, low(SUB16_Result)	; Load low byte of address
+0000ac e0f1                      		ldi		ZH, high(SUB16_Result)	; Load high byte of address
                                  
                                  		; Execute the function
                                  		; First Byte 
-0000ac 903d                      		ld r3, X+				; Load first low byte into A
-0000ad 9049                      		ld r4, Y+				; Load first high byte into B
-0000ae 1834                      		SUB r3, r4				; Subtract low byte from high byte
-0000af 9231                      		ST Z+, r3
+0000ad 903d                      		ld r3, X+						; Load first low byte into A
+0000ae 9049                      		ld r4, Y+						; Load first high byte into B
+0000af 1834                      		SUB r3, r4						; Subtract low byte from high byte
+0000b0 9231                      		ST Z+, r3
                                  
                                  		; Second Byte
-0000b0 903c                      		ld r3, X				; Load first low byte into A
-0000b1 8048                      		ld r4, Y				; Load first high byte into B
-0000b2 0834                      		SBC r3, r4				; Add second low byte to first
-0000b3 9231                      		ST Z+, r3
-0000b4 f410                      		brcc EXIT_SUB
-0000b5 e001                      		ldi mpr, 0x01
-0000b6 8300                      		ST Z, mpr
+0000b1 903c                      		ld r3, X						; Load first low byte into A
+0000b2 8048                      		ld r4, Y						; Load first high byte into B
+0000b3 0834                      		SBC r3, r4						; Subtract second low byte to first
+0000b4 9231                      		ST Z+, r3
+0000b5 f410                      		brcc EXIT_SUB
+0000b6 e001                      		ldi mpr, 0x01
+0000b7 8300                      		ST Z, mpr
                                  
                                  		EXIT_SUB:
-0000b7 9508                      			ret						; End a function with RET
+0000b8 9508                      			ret							; End a function with RET
                                  
                                  ;-----------------------------------------------------------
                                  ; Func: MUL24
@@ -1548,78 +1546,78 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  ;-----------------------------------------------------------
                                  MUL24:
                                  		;* - Simply adopting MUL16 ideas to MUL24 will not give you steady results. You should come up with different ideas.
-0000b8 923f                      		push 	A				; Save A register
-0000b9 924f                      		push	B				; Save B register
-0000ba 921f                      		push	rhi				; Save rhi register
-0000bb 920f                      		push	rlo				; Save rlo register
-0000bc 922f                      		push	zero			; Save zero register
-0000bd 93bf                      		push	XH				; Save X-ptr
-0000be 93af                      		push	XL
-0000bf 93df                      		push	YH				; Save Y-ptr
-0000c0 93cf                      		push	YL
-0000c1 93ff                      		push	ZH				; Save Z-ptr
-0000c2 93ef                      		push	ZL
-0000c3 931f                      		push	oloop			; Save counters
-0000c4 932f                      		push	iloop
+0000b9 923f                      		push 	A						; Save A register
+0000ba 924f                      		push	B						; Save B register
+0000bb 921f                      		push	rhi						; Save rhi register
+0000bc 920f                      		push	rlo						; Save rlo register
+0000bd 922f                      		push	zero					; Save zero register
+0000be 93bf                      		push	XH						; Save X-ptr
+0000bf 93af                      		push	XL
+0000c0 93df                      		push	YH						; Save Y-ptr
+0000c1 93cf                      		push	YL
+0000c2 93ff                      		push	ZH						; Save Z-ptr
+0000c3 93ef                      		push	ZL
+0000c4 931f                      		push	oloop					; Save counters
+0000c5 932f                      		push	iloop
                                  
-0000c5 2422                      		clr		zero			; Maintain zero semantics
+0000c6 2422                      		clr		zero					; Maintain zero semantics
                                  
-                                 		; Set Y to beginning address of B
-0000c6 e1c3                      		ldi		YL, low(MulAddrB)	; Load low byte
-0000c7 e0d1                      		ldi		YH, high(MulAddrB)	; Load high byte
+                                 		; Set Y to beginning address of operator 2 
+0000c7 e1c3                      		ldi		YL, low(MUL24_OP2)		; Load low byte
+0000c8 e0d1                      		ldi		YH, high(MUL24_OP2)		; Load high byte
                                  
                                  		; Set Z to begginning address of resulting Product
-0000c8 e1e6                      		ldi		ZL, low(MulAddrRes)	; Load low byte
-0000c9 e0f1                      		ldi		ZH, high(MulAddrRes); Load high byte
+0000c9 e1e6                      		ldi		ZL, low(MulAddrRes)		; Load low byte
+0000ca e0f1                      		ldi		ZH, high(MulAddrRes)	; Load high byte
                                  
                                  		; Begin outer for loop
-0000ca e013                      		ldi		oloop, 3		; Load counter
+0000cb e013                      		ldi		oloop, 3				; Load counter
                                  MUL24_OLOOP:
-                                 		; Set X to beginning address of A
-0000cb e1a0                      		ldi		XL, low(MulAddrA)	; Load low byte
-0000cc e0b1                      		ldi		XH, high(MulAddrA)	; Load high byte
+                                 		; Set X to beginning address of operator 1
+0000cc e1a0                      		ldi		XL, low(MUL24_OP1)		; Load low byte
+0000cd e0b1                      		ldi		XH, high(MUL24_OP1)		; Load high byte
                                  
                                  		; Begin inner for loop
-0000cd e023                      		ldi		iloop, 3		; Load counter
+0000ce e023                      		ldi		iloop, 3				; Load counter
                                  
                                  MUL24_ILOOP:
-0000ce 903d                      		ld		A, X+			; Get byte of A operand
-0000cf 8048                      		ld		B, Y			; Get byte of B operand
-0000d0 9c34                      		mul		A,B				; Multiply A and B
-0000d1 9031                      		ld		A, Z+			; Get a result byte from memory
-0000d2 9041                      		ld		B, Z+			; Get the next result byte from memory
-0000d3 0c03                      		add		rlo, A			; rlo <= rlo + A
-0000d4 1c14                      		adc		rhi, B			; rhi <= rhi + B + carry
-0000d5 8030                      		ld		A, Z			; Get a third byte from the result
-0000d6 1c32                      		adc		A, zero			; Add carry to A
-0000d7 8230                      		st		Z, A			; Store third byte to memory
-0000d8 9212                      		st		-Z, rhi			; Store second byte to memory
-0000d9 9202                      		st		-Z, rlo			; Store first byte to memory
-0000da 9631                      		adiw	ZH:ZL, 1		; Z <= Z + 1
-0000db 952a                      		dec		iloop			; Decrement counter
-0000dc f789                      		brne	MUL24_ILOOP		; Loop if iLoop != 0
+0000cf 903d                      		ld		A, X+					; Get byte of A operand
+0000d0 8048                      		ld		B, Y					; Get byte of B operand
+0000d1 9c34                      		mul		A,B						; Multiply A and B
+0000d2 9031                      		ld		A, Z+					; Get a result byte from memory
+0000d3 9041                      		ld		B, Z+					; Get the next result byte from memory
+0000d4 0c03                      		add		rlo, A					; rlo <= rlo + A
+0000d5 0c14                      		add		rhi, B					; rhi <= rhi + B + carry
+0000d6 8030                      		ld		A, Z					; Get a third byte from the result
+0000d7 1c32                      		adc		A, zero					; Add carry to A
+0000d8 8230                      		st		Z, A					; Store third byte to memory
+0000d9 9212                      		st		-Z, rhi					; Store second byte to memory
+0000da 9202                      		st		-Z, rlo					; Store first byte to memory
+0000db 9631                      		adiw	ZH:ZL, 1				; Z <= Z + 1
+0000dc 952a                      		dec		iloop					; Decrement counter
+0000dd f789                      		brne	MUL24_ILOOP				; Loop if iLoop != 0
                                  		; End inner for loop
                                  
-0000dd 9732                      		sbiw	ZH:ZL, 2		; Z <= Z - 2
-0000de 9621                      		adiw	YH:YL, 1		; Y <= Y + 1
-0000df 951a                      		dec		oloop			; Decrement counter
-0000e0 f751                      		brne	MUL24_OLOOP		; Loop if oLoop != 0
+0000de 9732                      		sbiw	ZH:ZL, 2				; Z <= Z - 2
+0000df 9621                      		adiw	YH:YL, 1				; Y <= Y + 1
+0000e0 951a                      		dec		oloop					; Decrement counter
+0000e1 f751                      		brne	MUL24_OLOOP				; Loop if oLoop != 0
                                  		; End outer for loop
                                  
-0000e1 912f                      		pop		iloop			; Restore all registers in reverves order
-0000e2 911f                      		pop		oloop
-0000e3 91ef                      		pop		ZL
-0000e4 91ff                      		pop		ZH
-0000e5 91cf                      		pop		YL
-0000e6 91df                      		pop		YH
-0000e7 91af                      		pop		XL
-0000e8 91bf                      		pop		XH
-0000e9 902f                      		pop		zero
-0000ea 900f                      		pop		rlo
-0000eb 901f                      		pop		rhi
-0000ec 904f                      		pop		B
-0000ed 903f                      		pop		A
-0000ee 9508                      		ret						; End a function with RET
+0000e2 912f                      		pop		iloop					; Restore all registers in reverves order
+0000e3 911f                      		pop		oloop
+0000e4 91ef                      		pop		ZL
+0000e5 91ff                      		pop		ZH
+0000e6 91cf                      		pop		YL
+0000e7 91df                      		pop		YH
+0000e8 91af                      		pop		XL
+0000e9 91bf                      		pop		XH
+0000ea 902f                      		pop		zero
+0000eb 900f                      		pop		rlo
+0000ec 901f                      		pop		rhi
+0000ed 904f                      		pop		B
+0000ee 903f                      		pop		A
+0000ef 9508                      		ret								; End a function with RET
                                  
                                  ;-----------------------------------------------------------
                                  ; Func: COMPOUND
@@ -1637,31 +1635,31 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  		; Setup SUB16 with operands G and H
                                  
                                  		; Load Operand A Address into Z
-0000ef ecec                      		ldi ZL, low(2*OperandG)
-0000f0 e0f2                      		ldi ZH, high(2*OperandG)
+0000f0 e6e0                      		ldi ZL, low(2*OperandG)
+0000f1 e0f2                      		ldi ZH, high(2*OperandG)
                                  
-0000f1 e4a0                      		ldi XL, low(SUB16_OP1)	; Load low byte of address
-0000f2 e0b1                      		ldi	XH, high(SUB16_OP1)	; Load high byte of address
+0000f2 e4a0                      		ldi XL, low(SUB16_OP1)			; Load low byte of address
+0000f3 e0b1                      		ldi	XH, high(SUB16_OP1)			; Load high byte of address
                                  
                                  		; Load the 2 bytes from 
-0000f3 9035                      		lpm A, Z+
-0000f4 923d                      		ST X+, A
-0000f5 9034                      		lpm A, Z
-0000f6 923c                      		ST X, A
+0000f4 9035                      		lpm A, Z+
+0000f5 923d                      		ST X+, A
+0000f6 9034                      		lpm A, Z
+0000f7 923c                      		ST X, A
                                  
-0000f7 ecee                      		ldi ZL, low(2*OperandH)
-0000f8 e0f2                      		ldi ZH, high(2*OperandH)
+0000f8 e6e2                      		ldi ZL, low(2*OperandH)
+0000f9 e0f2                      		ldi ZH, high(2*OperandH)
                                  
-0000f9 e4a2                      		ldi XL, low(SUB16_OP2)	; Load low byte of address
-0000fa e0b1                      		ldi	XH, high(SUB16_OP2)	; Load high byte of address
+0000fa e4a2                      		ldi XL, low(SUB16_OP2)			; Load low byte of address
+0000fb e0b1                      		ldi	XH, high(SUB16_OP2)			; Load high byte of address
                                  
-0000fb 9035                      		lpm A, Z+
-0000fc 923d                      		ST X+, A
-0000fd 9034                      		lpm A, Z
-0000fe 923c                      		ST X, A
+0000fc 9035                      		lpm A, Z+
+0000fd 923d                      		ST X+, A
+0000fe 9034                      		lpm A, Z
+0000ff 923c                      		ST X, A
                                  
                                  		; Perform subtraction to calculate G - H
-0000ff dfa6                      		rcall SUB16
+000100 dfa6                      		rcall SUB16
                                  
                                  		; Setup the ADD16 function with SUB16 result and operand I4
                                  		; ---------------------------------------------------------------------------------------------------
@@ -1669,31 +1667,31 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  		; ---------------------------------------------------------------------------------------------------
                                  
                                  		; Load Operand A Address into Z
-000100 ede0                      		ldi ZL, low(2*OperandI)
-000101 e0f2                      		ldi ZH, high(2*OperandI)
+000101 e6e4                      		ldi ZL, low(2*OperandI)
+000102 e0f2                      		ldi ZH, high(2*OperandI)
                                  
-000102 e2a0                      		ldi XL, low(ADD16_OP1)	; Load low byte of address
-000103 e0b1                      		ldi	XH, high(ADD16_OP1)	; Load high byte of address
+000103 e2a0                      		ldi XL, low(ADD16_OP1)			; Load low byte of address
+000104 e0b1                      		ldi	XH, high(ADD16_OP1)			; Load high byte of address
                                  
                                  		; Load the 2 bytes from program memory
-000104 9035                      		lpm A, Z+
-000105 923d                      		ST X+, A
-000106 9034                      		lpm A, Z
-000107 923c                      		ST X, A
+000105 9035                      		lpm A, Z+
+000106 923d                      		ST X+, A
+000107 9034                      		lpm A, Z
+000108 923c                      		ST X, A
                                  
                                  		; Load the subtraction result in to the second add operator
-000108 e5e0                      		ldi ZL, low(SUB16_Result)
-000109 e0f1                      		ldi ZH, high(SUB16_Result)
+000109 e5e0                      		ldi ZL, low(SUB16_Result)
+00010a e0f1                      		ldi ZH, high(SUB16_Result)
                                  
-00010a e2a2                      		ldi XL, low(ADD16_OP2)	; Load low byte of address
-00010b e0b1                      		ldi	XH, high(ADD16_OP2)	; Load high byte of address
+00010b e2a2                      		ldi XL, low(ADD16_OP2)			; Load low byte of address
+00010c e0b1                      		ldi	XH, high(ADD16_OP2)			; Load high byte of address
                                  
-00010c 9031                      		ld A, Z+
-00010d 923d                      		ST X+, A
-00010e 8030                      		ld A, Z
-00010f 923c                      		ST X, A
+00010d 9031                      		ld A, Z+
+00010e 923d                      		ST X+, A
+00010f 8030                      		ld A, Z
+000110 923c                      		ST X, A
                                  
-000110 df83                      		rcall ADD16
+000111 df83                      		rcall ADD16
                                  
                                  		; ---------------------------------------------------------------------------------------------------
                                  
@@ -1703,123 +1701,40 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  		; Setup the MUL24 function with ADD16 result as both operands
                                  
                                  		; Load Operand A Address into Z
-000111 e3e0                      		ldi ZL, low(ADD16_Result)
-000112 e0f1                      		ldi ZH, high(ADD16_Result)
+000112 e3e0                      		ldi ZL, low(ADD16_Result)
+000113 e0f1                      		ldi ZH, high(ADD16_Result)
                                  
                                  		; Load beginning address of first operand into X
-000113 e1a0                      		ldi XL, low(MulAddrA)	; Load low byte of address
-000114 e0b1                      		ldi	XH, high(MulAddrA)	; Load high byte of address
+000114 e1a0                      		ldi XL, low(MUL24_OP1)			; Load low byte of address
+000115 e0b1                      		ldi	XH, high(MUL24_OP1)			; Load high byte of address
                                  
                                  		; Load beginning address of second operand into Y
-000115 e1c3                      		ldi		YL, low(MulAddrB)	; Load low byte of address
-000116 e0d1                      		ldi		YH, high(MulAddrB)	; Load high byte of address
+000116 e1c3                      		ldi		YL, low(MUL24_OP2)		; Load low byte of address
+000117 e0d1                      		ldi		YH, high(MUL24_OP2)		; Load high byte of address
                                  
                                  		; Load the 2 bytes from 
-000117 9031                      		ld A, Z+
-000118 923d                      		ST X+, A
-000119 9031                      		ld A, Z+
-00011a 923d                      		ST X+, A
-00011b 8030                      		ld A, Z
-00011c 923c                      		ST X, A
+000118 9031                      		ld A, Z+
+000119 923d                      		ST X+, A
+00011a 9031                      		ld A, Z+
+00011b 923d                      		ST X+, A
+00011c 8030                      		ld A, Z
+00011d 923c                      		ST X, A
                                  		
                                  
-00011d e3e0                      		ldi ZL, low(ADD16_Result)
-00011e e0f1                      		ldi ZH, high(ADD16_Result)
+00011e e3e0                      		ldi ZL, low(ADD16_Result)
+00011f e0f1                      		ldi ZH, high(ADD16_Result)
                                  
-00011f 9031                      		ld A, Z+
-000120 9239                      		ST Y+, A
-000121 9031                      		ld A, Z+
-000122 9239                      		ST Y+, A
-000123 8030                      		ld A, Z
-000124 8238                      		ST Y, A
+000120 9031                      		ld A, Z+
+000121 9239                      		ST Y+, A
+000122 9031                      		ld A, Z+
+000123 9239                      		ST Y+, A
+000124 8030                      		ld A, Z
+000125 8238                      		ST Y, A
                                  
                                  		; Perform multiplication to calculate ((G - H) + I)^2
-000125 df92                      		rcall MUL24
+000126 df92                      		rcall MUL24
                                  
-000126 9508                      		ret						; End a function with RET
-                                 
-                                 ;-----------------------------------------------------------
-                                 ; Func: MUL16
-                                 ; Desc: An example function that multiplies two 16-bit numbers
-                                 ;       A - Operand A is gathered from address $0101:$0100
-                                 ;       B - Operand B is gathered from address $0103:$0102
-                                 ;       Res - Result is stored in address
-                                 ;             $0107:$0106:$0105:$0104
-                                 ;       You will need to make sure that Res is cleared before
-                                 ;       calling this function.
-                                 ;-----------------------------------------------------------
-                                 MUL16:
-000127 923f                      		push 	A				; Save A register
-000128 924f                      		push	B				; Save B register
-000129 921f                      		push	rhi				; Save rhi register
-00012a 920f                      		push	rlo				; Save rlo register
-00012b 922f                      		push	zero			; Save zero register
-00012c 93bf                      		push	XH				; Save X-ptr
-00012d 93af                      		push	XL
-00012e 93df                      		push	YH				; Save Y-ptr
-00012f 93cf                      		push	YL
-000130 93ff                      		push	ZH				; Save Z-ptr
-000131 93ef                      		push	ZL
-000132 931f                      		push	oloop			; Save counters
-000133 932f                      		push	iloop
-                                 
-000134 2422                      		clr		zero			; Maintain zero semantics
-                                 
-                                 		; Set Y to beginning address of B
-000135 e1c0                      		ldi		YL, low(MulAddrA)	; Load low byte
-000136 e0d1                      		ldi		YH, high(MulAddrA)	; Load high byte
-                                 
-                                 		; Set Z to begginning address of resulting Product
-000137 e1e6                      		ldi		ZL, low(MulAddrRes)	; Load low byte
-000138 e0f1                      		ldi		ZH, high(MulAddrRes)	; Load high byte
-                                 
-                                 		; Begin outer for loop
-000139 e012                      		ldi		oloop, 2		; Load counter
-                                 MUL16_OLOOP:
-                                 		; Set X to beginning address of A
-00013a e0a0                      		ldi		XL, low(addrA)	; Load low byte
-00013b e0b1                      		ldi		XH, high(addrA)	; Load high byte
-                                 
-                                 		; Begin inner for loop
-00013c e022                      		ldi		iloop, 2		; Load counter
-                                 MUL16_ILOOP:
-00013d 903d                      		ld		A, X+			; Get byte of A operand
-00013e 8048                      		ld		B, Y			; Get byte of B operand
-00013f 9c34                      		mul		A,B				; Multiply A and B
-000140 9031                      		ld		A, Z+			; Get a result byte from memory
-000141 9041                      		ld		B, Z+			; Get the next result byte from memory
-000142 0c03                      		add		rlo, A			; rlo <= rlo + A
-000143 1c14                      		adc		rhi, B			; rhi <= rhi + B + carry
-000144 8030                      		ld		A, Z			; Get a third byte from the result
-000145 1c32                      		adc		A, zero			; Add carry to A
-000146 8230                      		st		Z, A			; Store third byte to memory
-000147 9212                      		st		-Z, rhi			; Store second byte to memory
-000148 9202                      		st		-Z, rlo			; Store first byte to memory
-000149 9631                      		adiw	ZH:ZL, 1		; Z <= Z + 1
-00014a 952a                      		dec		iloop			; Decrement counter
-00014b f789                      		brne	MUL16_ILOOP		; Loop if iLoop != 0
-                                 		; End inner for loop
-                                 
-00014c 9731                      		sbiw	ZL, 1		; Z <= Z - 1
-00014d 9621                      		adiw	YH:YL, 1		; Y <= Y + 1
-00014e 951a                      		dec		oloop			; Decrement counter
-00014f f751                      		brne	MUL16_OLOOP		; Loop if oLoop != 0
-                                 		; End outer for loop
-                                 
-000150 912f                      		pop		iloop			; Restore all registers in reverves order
-000151 911f                      		pop		oloop
-000152 91ef                      		pop		ZL
-000153 91ff                      		pop		ZH
-000154 91cf                      		pop		YL
-000155 91df                      		pop		YH
-000156 91af                      		pop		XL
-000157 91bf                      		pop		XH
-000158 902f                      		pop		zero
-000159 900f                      		pop		rlo
-00015a 901f                      		pop		rhi
-00015b 904f                      		pop		B
-00015c 903f                      		pop		A
-00015d 9508                      		ret						; End a function with RET
+000127 9508                      		ret								; End a function with RET
                                  
                                  
                                  ;***********************************************************
@@ -1828,70 +1743,70 @@ C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab4\Lab4\main.asm(9): Including
                                  ;***********************************************************
                                  ; ADD16 operands
                                  OperandA:
-00015e 0001                      	.DW 0x0001
+000128 fcba                      	.DW 0xFCBA
                                  OperandB:
-00015f 0002                      	.DW 0x0002
+000129 ffff                      	.DW 0xFFFF
                                  
                                  ; SUB16 operands
                                  OperandC:
-000160 fcb9                      	.DW 0XFCB9
+00012a fcb9                      	.DW 0XFCB9
                                  OperandD:
-000161 e420                      	.DW 0XE420
+00012b e420                      	.DW 0XE420
                                  
                                  ; MUL24 operands
                                  OperandE1:
-000162 ffff                      	.DW	0XFFFF
+00012c ffff                      	.DW	0XFFFF
                                  OperandE2:
-000163 00ff                      	.DW	0X00FF
+00012d 00ff                      	.DW	0X00FF
                                  OperandF1:
-000164 ffff                      	.DW	0XFFFF
+00012e ffff                      	.DW	0XFFFF
                                  OperandF2:
-000165 00ff                      	.DW	0X00FF
+00012f 00ff                      	.DW	0X00FF
                                  
                                  ; Compoud operands
                                  OperandG:
-000166 fcba                      	.DW	0xFCBA				; test value for operand G
+000130 fcba                      	.DW	0xFCBA							; test value for operand G
                                  OperandH:
-000167 2022                      	.DW	0x2022				; test value for operand H
+000131 2022                      	.DW	0x2022							; test value for operand H
                                  OperandI:
-000168 21bb                      	.DW	0x21BB				; test value for operand I
+000132 21bb                      	.DW	0x21BB							; test value for operand I
                                  
                                  ;***********************************************************
                                  ;*	Data Memory Allocation
                                  ;***********************************************************
                                  .dseg
-                                 .org	$0100				; data memory allocation for MUL16 example
-000100                           addrA:	.byte 3
-000103                           addrB:	.byte 3
-000106                           LAddrP:	.byte 4
                                  
+                                 ; Multiplication memory allocation
                                  .org	$0110
-000110                           MulAddrA:	.byte 3
-000113                           MulAddrB:	.byte 3
-000116                           MulAddrRes:	.byte 9
+                                 MUL24_OP1:	
+000110                           		.byte 3
+                                 MUL24_OP2:	
+000113                           		.byte 3
+                                 
+                                 MulAddrRes:	
+000116                           		.byte 9
                                  
                                  ; Below is an example of data memory allocation for ADD16.
-                                 ; Consider using something similar for SUB16 and MUL24.
-                                 .org	$0120				; data memory allocation for operands
+                                 .org	$0120							; data memory allocation for operands
                                  ADD16_OP1:
-000120                           		.byte 2				; allocate two bytes for first operand of ADD16
+000120                           		.byte 2							; allocate two bytes for first operand of ADD16
                                  ADD16_OP2:
-000122                           		.byte 2				; allocate two bytes for second operand of ADD16
+000122                           		.byte 2							; allocate two bytes for second operand of ADD16
                                  
-                                 .org	$0130				; data memory allocation for results
+                                 .org	$0130							; data memory allocation for results
                                  ADD16_Result:
-000130                           		.byte 3				; allocate three bytes for ADD16 result
+000130                           		.byte 3							; allocate three bytes for ADD16 result
                                  
                                  ; Subtract memory blocks
-                                 .org	$0140				; data memory allocation for operands
+                                 .org	$0140							; data memory allocation for operands
                                  SUB16_OP1:
-000140                           		.byte 2				; allocate two bytes for first operand of ADD16
+000140                           		.byte 2							; allocate two bytes for first operand of ADD16
                                  SUB16_OP2:
-000142                           		.byte 2				; allocate two bytes for second operand of ADD16
+000142                           		.byte 2							; allocate two bytes for second operand of ADD16
                                  
-                                 .org	$0150				; data memory allocation for results
+                                 .org	$0150							; data memory allocation for results
                                  SUB16_Result:
-000150                           		.byte 2				; allocate three bytes for ADD16 result
+000150                           		.byte 2							; allocate three bytes for ADD16 result
                                  		
                                  ;***********************************************************
                                  ;*	Additional Program Includes
@@ -1914,32 +1829,32 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega128" register use summary:
-x  :  24 y  :  16 z  :  46 r0 :   8 r1 :   8 r2 :   9 r3 :  86 r4 :  20 
+x  :  23 y  :  15 z  :  40 r0 :   4 r1 :   4 r2 :   5 r3 :  77 r4 :  14 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:   8 r17:   8 r18:   8 r19:   0 r20:   0 
-r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:  16 r27:  16 r28:  14 
-r29:  14 r30:  24 r31:  23 
+r13:   0 r14:   0 r15:   0 r16:   8 r17:   4 r18:   4 r19:   0 r20:   0 
+r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:  13 r27:  13 r28:  10 
+r29:  10 r30:  19 r31:  19 
 Registers used: 17 out of 35 (48.6%)
 
 "ATmega128" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   5 add   :   3 adiw  :   4 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   2 add   :   3 adiw  :   2 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   2 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   4 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   2 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   3 cls   :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   2 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   4 elpm  :   0 eor   :   0 fmul  :   0 
+cpi   :   0 cpse  :   0 dec   :   2 elpm  :   0 eor   :   0 fmul  :   0 
 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 
-jmp   :   0 ld    :  26 ldd   :   0 ldi   :  80 lds   :   0 lpm   :  29 
-lsl   :   0 lsr   :   0 mov   :   0 movw  :   0 mul   :   2 muls  :   0 
+jmp   :   0 ld    :  21 ldd   :   0 ldi   :  72 lds   :   0 lpm   :  29 
+lsl   :   0 lsr   :   0 mov   :   0 movw  :   0 mul   :   1 muls  :   0 
 mulsu :   0 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   2 
-pop   :  26 push  :  26 rcall :   4 ret   :   8 reti  :   0 rjmp  :   2 
+pop   :  13 push  :  13 rcall :   5 ret   :   7 reti  :   0 rjmp  :   2 
 rol   :   0 ror   :   0 sbc   :   1 sbci  :   0 sbi   :   0 sbic  :   0 
-sbis  :   0 sbiw  :   2 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 
+sbis  :   0 sbiw  :   1 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 
 seh   :   0 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 
-sev   :   0 sez   :   0 sleep :   0 spm   :   0 st    :  40 std   :   0 
+sev   :   0 sez   :   0 sleep :   0 spm   :   0 st    :  37 std   :   0 
 sts   :   0 sub   :   1 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
 
 Instructions used: 21 out of 114 (18.4%)
@@ -1947,8 +1862,8 @@ Instructions used: 21 out of 114 (18.4%)
 "ATmega128" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0002d2    530     22    552  131072   0.4%
-[.dseg] 0x000100 0x000152      0     38     38    4096   0.9%
+[.cseg] 0x000000 0x000266    422     22    444  131072   0.3%
+[.dseg] 0x000100 0x000152      0     28     28    4096   0.7%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 
 Assembly complete, 0 errors, 0 warnings

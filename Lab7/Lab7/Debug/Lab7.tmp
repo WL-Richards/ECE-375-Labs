@@ -11,6 +11,7 @@
  <INCLUDED_FILES>
   <FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\m32U4def.inc</FILE>
   <FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE>
+  <FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\Debug\Lab7.obj</FILE>
@@ -23,42 +24,57 @@
   <FILE>Lab7.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <INIT><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>51</LINE></INIT>
-  <RECEIVE><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>128</LINE></RECEIVE>
+  <INIT><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>92</LINE></INIT>
+  <SEND_READY><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>511</LINE></SEND_READY>
+  <CYCLE_SELCTION><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>532</LINE></CYCLE_SELCTION>
+  <RECEIVE><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>474</LINE></RECEIVE>
   <LCDInit><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>71</LINE></LCDInit>
-  <LOAD_WELCOME_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>132</LINE></LOAD_WELCOME_MSG>
-  <MAIN><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>114</LINE></MAIN>
-  <TRANSMIT><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>118</LINE></TRANSMIT>
   <LCDClr><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>187</LINE></LCDClr>
-  <STRING_WELCOME_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>206</LINE></STRING_WELCOME_START>
-  <WELCOME_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>144</LINE></WELCOME_MSG_LOOP>
-  <STRING_WELCOME_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>208</LINE></STRING_WELCOME_END>
-  <WAIT_ONE_HALF_SECOND><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>156</LINE></WAIT_ONE_HALF_SECOND>
-  <WAIT_HALF_SECOND><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>164</LINE></WAIT_HALF_SECOND>
-  <WAIT_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>172</LINE></WAIT_LOOP>
-  <STRING_ROCK_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>211</LINE></STRING_ROCK_START>
-  <STRING_ROCK_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>213</LINE></STRING_ROCK_END>
-  <STRING_PAPER_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>216</LINE></STRING_PAPER_START>
-  <STRING_PAPER_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>218</LINE></STRING_PAPER_END>
-  <STRING_SCISSORS_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>221</LINE></STRING_SCISSORS_START>
-  <STRING_SCISSORS_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>223</LINE></STRING_SCISSORS_END>
-  <STRING_OPPONENT_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>226</LINE></STRING_OPPONENT_START>
-  <STRING_OPPONENT_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>228</LINE></STRING_OPPONENT_END>
-  <STRING_GAME_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>231</LINE></STRING_GAME_START>
-  <STRING_GAME_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>233</LINE></STRING_GAME_END>
-  <STRING_WON_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>236</LINE></STRING_WON_START>
-  <STRING_WON_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>238</LINE></STRING_WON_END>
-  <STRING_LOST_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>241</LINE></STRING_LOST_START>
-  <STRING_LOST_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>243</LINE></STRING_LOST_END>
-  <STRING_DRAW_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>246</LINE></STRING_DRAW_START>
-  <STRING_DRAW_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>248</LINE></STRING_DRAW_END>
+  <LCDBacklightOn><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>123</LINE></LCDBacklightOn>
+  <LOAD_WELCOME_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>14</LINE></LOAD_WELCOME_MSG>
+  <LCDWrite><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>140</LINE></LCDWrite>
+  <MAIN><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>198</LINE></MAIN>
+  <GAME><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>215</LINE></GAME>
+  <LOAD_START_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>34</LINE></LOAD_START_MSG>
+  <WAIT_SIX_SECONDS><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>621</LINE></WAIT_SIX_SECONDS>
+  <TRANSMIT><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>442</LINE></TRANSMIT>
+  <DISPLAY_OPP_MOVE><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>406</LINE></DISPLAY_OPP_MOVE>
+  <END_GAME><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>253</LINE></END_GAME>
+  <USER_ROCK><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>314</LINE></USER_ROCK>
+  <USER_PAPER><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>336</LINE></USER_PAPER>
+  <USER_SCISSORS><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>358</LINE></USER_SCISSORS>
+  <TIE><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>397</LINE></TIE>
+  <LOSS><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>389</LINE></LOSS>
+  <WIN><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>381</LINE></WIN>
+  <LOAD_WIN_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>72</LINE></LOAD_WIN_MSG>
+  <LCDWrLn2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>168</LINE></LCDWrLn2>
+  <LOAD_LOSS_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>91</LINE></LOAD_LOSS_MSG>
+  <LOAD_DRAW_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>110</LINE></LOAD_DRAW_MSG>
+  <OPP_ROCK><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>421</LINE></OPP_ROCK>
+  <OPP_PAPER><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>425</LINE></OPP_PAPER>
+  <OPP_SCISSORS><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>429</LINE></OPP_SCISSORS>
+  <LOAD_TOP_ROCK_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>186</LINE></LOAD_TOP_ROCK_MSG>
+  <LOAD_TOP_PAPER_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>205</LINE></LOAD_TOP_PAPER_MSG>
+  <LOAD_TOP_SCISSORS_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>224</LINE></LOAD_TOP_SCISSORS_MSG>
+  <SET_USER_READY><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>452</LINE></SET_USER_READY>
+  <END_TRANSMIT><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>467</LINE></END_TRANSMIT>
+  <SET_OPPONENT_READY><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>484</LINE></SET_OPPONENT_READY>
+  <END_RECEIVE><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>500</LINE></END_RECEIVE>
+  <LOAD_WAITING_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>53</LINE></LOAD_WAITING_MSG>
+  <ROCK><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>545</LINE></ROCK>
+  <PAPER><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>553</LINE></PAPER>
+  <SCISSORS><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>561</LINE></SCISSORS>
+  <LOAD_ROCK_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>129</LINE></LOAD_ROCK_MSG>
+  <LOAD_PAPER_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>148</LINE></LOAD_PAPER_MSG>
+  <LOAD_SCISSORS_MSG><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>167</LINE></LOAD_SCISSORS_MSG>
+  <WAIT_ONE_HALF_SECOND><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>577</LINE></WAIT_ONE_HALF_SECOND>
+  <WAIT_HALF_SECOND><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>589</LINE></WAIT_HALF_SECOND>
+  <WAIT_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>597</LINE></WAIT_LOOP>
+  <ONE_CYCLE><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\main.asm</FILE><LINE>635</LINE></ONE_CYCLE>
   <LCDDelay><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>501</LINE></LCDDelay>
   <LCD_Internal_WriteCMD><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>485</LINE></LCD_Internal_WriteCMD>
-  <LCDBacklightOn><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>123</LINE></LCDBacklightOn>
   <LCDBacklightOff><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>131</LINE></LCDBacklightOff>
-  <LCDWrite><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>140</LINE></LCDWrite>
   <LCDWrLn1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>149</LINE></LCDWrLn1>
-  <LCDWrLn2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>168</LINE></LCDWrLn2>
   <LCD_Internal_WriteLn><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>337</LINE></LCD_Internal_WriteLn>
   <LCDClrLn1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>252</LINE></LCDClrLn1>
   <LCDClrLn2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>265</LINE></LCDClrLn2>
@@ -87,5 +103,35 @@
   <LCDDelay_L2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>507</LINE></LCDDelay_L2>
   <div10_1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>563</LINE></div10_1>
   <div10_2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\LCDDriver.asm</FILE><LINE>570</LINE></div10_2>
+  <STRING_WELCOME_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>253</LINE></STRING_WELCOME_START>
+  <WELCOME_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>23</LINE></WELCOME_MSG_LOOP>
+  <STRING_WELCOME_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>255</LINE></STRING_WELCOME_END>
+  <STRING_GAME_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>278</LINE></STRING_GAME_START>
+  <START_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>43</LINE></START_MSG_LOOP>
+  <STRING_GAME_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>280</LINE></STRING_GAME_END>
+  <STRING_OPPONENT_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>273</LINE></STRING_OPPONENT_START>
+  <WAITING_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>62</LINE></WAITING_MSG_LOOP>
+  <STRING_OPPONENT_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>275</LINE></STRING_OPPONENT_END>
+  <STRING_WON_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>283</LINE></STRING_WON_START>
+  <WIN_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>81</LINE></WIN_MSG_LOOP>
+  <STRING_WON_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>285</LINE></STRING_WON_END>
+  <STRING_LOST_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>288</LINE></STRING_LOST_START>
+  <LOSS_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>100</LINE></LOSS_MSG_LOOP>
+  <STRING_LOST_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>290</LINE></STRING_LOST_END>
+  <STRING_DRAW_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>293</LINE></STRING_DRAW_START>
+  <DRAW_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>119</LINE></DRAW_MSG_LOOP>
+  <STRING_DRAW_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>295</LINE></STRING_DRAW_END>
+  <STRING_ROCK_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>258</LINE></STRING_ROCK_START>
+  <ROCK_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>138</LINE></ROCK_MSG_LOOP>
+  <STRING_ROCK_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>260</LINE></STRING_ROCK_END>
+  <STRING_PAPER_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>263</LINE></STRING_PAPER_START>
+  <PAPER_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>157</LINE></PAPER_MSG_LOOP>
+  <STRING_PAPER_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>265</LINE></STRING_PAPER_END>
+  <STRING_SCISSORS_START><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>268</LINE></STRING_SCISSORS_START>
+  <SCISSORS_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>176</LINE></SCISSORS_MSG_LOOP>
+  <STRING_SCISSORS_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>270</LINE></STRING_SCISSORS_END>
+  <ROCK_TOP_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>195</LINE></ROCK_TOP_MSG_LOOP>
+  <PAPER_TOP_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>214</LINE></PAPER_TOP_MSG_LOOP>
+  <SCISSORS_TOP_MSG_LOOP><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab7\Lab7\StringManager.asm</FILE><LINE>233</LINE></SCISSORS_TOP_MSG_LOOP>
  </LABELS>
 </ASSEMBLER_INFO>

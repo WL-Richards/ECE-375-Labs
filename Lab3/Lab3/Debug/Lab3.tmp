@@ -25,24 +25,30 @@
  <LABELS>
   <INIT><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>32</LINE></INIT>
   <LCDInit><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\LCDDriver.asm</FILE><LINE>71</LINE></LCDInit>
-  <MAIN><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>55</LINE></MAIN>
-  <ClearDisplay><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>82</LINE></ClearDisplay>
-  <PrintNamesOrder1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>87</LINE></PrintNamesOrder1>
-  <PrintNamesOrder2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>96</LINE></PrintNamesOrder2>
+  <MAIN><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>56</LINE></MAIN>
+  <ClearDisplay><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>90</LINE></ClearDisplay>
+  <PrintNamesOrder1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>98</LINE></PrintNamesOrder1>
+  <PrintNamesOrder2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>110</LINE></PrintNamesOrder2>
+  <ScrollNames><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>122</LINE></ScrollNames>
   <LCDBacklightOff><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\LCDDriver.asm</FILE><LINE>131</LINE></LCDBacklightOff>
   <LCDClr><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\LCDDriver.asm</FILE><LINE>187</LINE></LCDClr>
   <LCDBacklightOn><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\LCDDriver.asm</FILE><LINE>123</LINE></LCDBacklightOn>
-  <FirstName><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>109</LINE></FirstName>
-  <SecondName><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>140</LINE></SecondName>
+  <FirstName><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>161</LINE></FirstName>
+  <SecondName><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>192</LINE></SecondName>
   <LCDWrite><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\LCDDriver.asm</FILE><LINE>140</LINE></LCDWrite>
-  <FIRST_NAME><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>176</LINE></FIRST_NAME>
-  <first_name_line2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>122</LINE></first_name_line2>
-  <first_loop><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>128</LINE></first_loop>
-  <FIRST_NAME_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>177</LINE></FIRST_NAME_END>
-  <SECOND_NAME><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>178</LINE></SECOND_NAME>
-  <second_name_line1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>153</LINE></second_name_line1>
-  <second_loop><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>159</LINE></second_loop>
-  <SECOND_NAME_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>179</LINE></SECOND_NAME_END>
+  <ShiftChars><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>133</LINE></ShiftChars>
+  <Wait><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>228</LINE></Wait>
+  <FIRST_NAME><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>257</LINE></FIRST_NAME>
+  <first_name_line2><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>175</LINE></first_name_line2>
+  <first_loop><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>181</LINE></first_loop>
+  <FIRST_NAME_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>258</LINE></FIRST_NAME_END>
+  <SECOND_NAME><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>259</LINE></SECOND_NAME>
+  <second_name_line1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>206</LINE></second_name_line1>
+  <second_loop><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>212</LINE></second_loop>
+  <SECOND_NAME_END><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>260</LINE></SECOND_NAME_END>
+  <Loop><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>233</LINE></Loop>
+  <OLoop><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>234</LINE></OLoop>
+  <ILoop><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\main.asm</FILE><LINE>235</LINE></ILoop>
   <LCDDelay><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\LCDDriver.asm</FILE><LINE>501</LINE></LCDDelay>
   <LCD_Internal_WriteCMD><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\LCDDriver.asm</FILE><LINE>485</LINE></LCD_Internal_WriteCMD>
   <LCDWrLn1><FILE>C:\Users\jwilt\OneDrive\Documents\School\ECE375\Lab3\Lab3\LCDDriver.asm</FILE><LINE>149</LINE></LCDWrLn1>

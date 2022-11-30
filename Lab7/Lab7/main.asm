@@ -23,10 +23,10 @@
 .def	loop_count = r17		; Timer counter loops
 .def	transmit_byte = r18		; Byte that will be transmitted
 .def	recv_byte = r19			; Byte that will be received by the device
-.def	user_ready = r20		; Reg indicate user ready (1 - ready, 0 - not)
-.def	opp_ready = r21			; Reg indicated opp ready (1 - ready, 0 - not)
-.def	opp_move = r22			; Store opponent move
-.def	game_state = r23		; State of the current game
+.def	user_ready = r13		; Reg indicate user ready (1 - ready, 0 - not)
+.def	opp_ready = r14			; Reg indicated opp ready (1 - ready, 0 - not)
+.def	opp_move = r15			; Store opponent move
+.def	game_state = r12		; State of the current game
 
 ; Game State --------------------------------------------------
 ; Held on both devices and different numbers are equivelent 
@@ -100,13 +100,13 @@ INIT:
 
 ; I/O Ports -------------------------------------------------
 
-	; Enable Port B (Buttons)
+	; Enable Port B (LEDS)
 	ldi		mpr, $FF		; Set Port B Data Direction Register
 	out		DDRB, mpr		; for output
 	ldi		mpr, $00		; Initialize Port B Data Register
 	out		PORTB, mpr		; so all Port B outputs are low
 
-	; Enable Port D (LEDS)
+	; Enable Port D (Buttons)
 	ldi		mpr, $00		; Set Port D Data Direction Register
 	out		DDRD, mpr		; for input
 	ldi		mpr, $FF		; Initialize Port D Data Register
@@ -130,18 +130,19 @@ INIT:
 ; USART1 ------------------------------------------------------
 	
 	;Set baudrate at 2400bps (207 UBRR)
-	ldi mpr, 0x00
+	ldi mpr, high(416)
 	sts UBRR1H, mpr
-	ldi mpr, 0xCF
+	ldi mpr, low(416)
 	sts UBRR1L, mpr
 
+	;Set frame format: 8 data bits, 2 stop bits
+	ldi mpr, (1<<USBS1 | 1<<UCSZ11 | 1<<UCSZ10)
+	sts UCSR1C, mpr
+
 	;Enable receiver and transmitter
-	ldi mpr, (1<<RXEN1)|(1<<TXEN1)
+	ldi mpr, (1<<TXEN1 | 1<<RXEN1 | 1<<RXCIE1)
 	sts UCSR1B, mpr
 
-	;Set frame format: 8 data bits, 2 stop bits
-	ldi mpr, (1<<USBS1)|(3<<UCSZ10)
-	sts UCSR1C, mpr
 ; -------------------------------------------------------------
 
 ; TIMER/COUNTER1 ----------------------------------------------
@@ -160,9 +161,10 @@ INIT:
 	;Initialize LCD Display
 	rcall LCDInit
 	rcall LCDClr
+	rcall LCDBacklightOn
 
 	; Print the welcome message to the screen
-	rcall LOAD_WELCOME_MSG
+	call LOAD_WELCOME_MSG
 
 	; Write the welcome message to the LCD 
 	rcall LCDWrite
@@ -194,7 +196,8 @@ INIT:
 ;*  Main Program (Print the welcome message until PD7 pressed)
 ;***********************************************************
 MAIN:
-	cpi game_state, 0x02
+	ldi mpr, 0x02
+	cp game_state, mpr
 	breq GAME
 		
 	rjmp	MAIN
@@ -205,19 +208,21 @@ MAIN:
 
 ; Game control ---------------------------------------------
 
+
 ;***********************************************************
 ;*	Run the game
 ;***********************************************************
 GAME:
 
 	; Print the GAME START message with rock as default move
-	rcall LOAD_START_MSG
+	call LOAD_START_MSG
 	rcall LCDWrite
 
 	; Clear both of these so the tran/recv functions won't
 	; restart the game unintentionally
 	clr user_ready
 	clr opp_ready
+	rcall CYCLE_SELCTION
 
 	; Start the 6 second timer for the move selection process
 	; This routine will proceed until interrupted by PD4 (int 1)
@@ -247,7 +252,8 @@ GAME:
 ;***********************************************************
 END_GAME:
 	; set game state to end game
-	ldi game_state, 0x03
+	ldi mpr, 0x03
+	mov game_state, mpr
 
 	; Result Decision and display ------------------------------
 	
@@ -271,10 +277,11 @@ END_GAME:
 	rcall LCDClr
 
 	; set game mode to welcome message
-	ldi game_state 0x00
+	ldi mpr, 0x00
+	mov game_state, mpr
 
 	; Print the welcome message to the screen
-	rcall LOAD_WELCOME_MSG
+	call LOAD_WELCOME_MSG
 
 	; Write the welcome message to the LCD 
 	rcall LCDWrite
@@ -307,15 +314,18 @@ END_GAME:
 USER_ROCK:
 	
 	; opponent chose rock - tie
-	cpi opp_move, 0x01
+	ldi mpr, 0x01
+	cp opp_move, mpr
 	breq TIE
 
 	; opponent chose paper - loss
-	cpi opp_move, 0x02
+	ldi mpr, 0x02
+	cp opp_move, mpr
 	breq LOSS
 
 	; opponent chose scissors - win
-	cpi opp_move, 0x03
+	ldi mpr, 0x03
+	cp opp_move, mpr
 	breq WIN
 
 	ret
@@ -326,15 +336,18 @@ USER_ROCK:
 USER_PAPER:
 	
 	; opponent chose rock - win
-	cpi opp_move, 0x01
+	ldi mpr, 0x01
+	cp opp_move, mpr
 	breq WIN
 
 	; opponent chose paper - tie
-	cpi opp_move, 0x02
+	ldi mpr, 0x02
+	cp opp_move, mpr
 	breq TIE
 
 	; opponent chose scissors - loss
-	cpi opp_move, 0x03
+	ldi mpr, 0x03
+	cp opp_move, mpr
 	breq LOSS
 
 	ret
@@ -345,17 +358,20 @@ USER_PAPER:
 USER_SCISSORS:
 	
 	; opponent chose rock - loss
-	cpi opp_move, 0x01
+	ldi mpr, 0x01
+	cp opp_move, mpr
 	breq LOSS
 	ret
 
 	; opponent chose paper - win
-	cpi opp_move, 0x02
+	ldi mpr, 0x02
+	cp opp_move, mpr
 	breq WIN
 	ret
 
 	; opponent chose scissors - tie
-	cpi opp_move, 0x03
+	ldi mpr, 0x03
+	cp opp_move, mpr
 	breq TIE
 	ret
 
@@ -363,7 +379,7 @@ USER_SCISSORS:
 ;*	User won the round
 ;***********************************************************
 WIN:
-	rcall LOAD_WIN_MSG
+	call LOAD_WIN_MSG
 	rcall LCDWrLn2
 	ret
 
@@ -371,7 +387,7 @@ WIN:
 ;*	User lost the round
 ;***********************************************************
 LOSS:
-	rcall LOAD_LOSS_MSG
+	call LOAD_LOSS_MSG
 	rcall LCDWrLn2
 	ret
 
@@ -379,7 +395,7 @@ LOSS:
 ;*	User tied with opponenet
 ;***********************************************************
 TIE:
-	rcall LOAD_DRAW_MSG
+	call LOAD_DRAW_MSG
 	rcall LCDWrLn2
 	ret
 
@@ -390,25 +406,28 @@ TIE:
 DISPLAY_OPP_MOVE:
 	mov opp_move, recv_byte
 
-	cpi opp_move, 0x01
+	ldi mpr, 0x01
+	cp opp_move, mpr
 	breq OPP_ROCK
 
-	cpi opp_move, 0x02
+	ldi mpr, 0x02
+	cp opp_move, mpr
 	breq OPP_PAPER
 
-	cpi opp_move, 0x03
+	ldi mpr, 0x03
+	cp opp_move, mpr
 	breq OPP_SCISSORS
 
 	OPP_ROCK:
-		rcall LOAD_TOP_ROCK_MSG
+		call LOAD_TOP_ROCK_MSG
 		rcall LCDWrLn2
 		ret
 	OPP_PAPER:
-		rcall LOAD_TOP_PAPER_MSG
+		call LOAD_TOP_PAPER_MSG
 		rcall LCDWrLn2
 		ret
 	OPP_SCISSORS:
-		rcall LOAD_TOP_SCISSORS_MSG
+		call LOAD_TOP_SCISSORS_MSG
 		rcall LCDWrLn2
 		ret
 	ret
@@ -431,16 +450,18 @@ TRANSMIT:
 	sts UDR1, transmit_byte
 
 	SET_USER_READY:
-		ldi user_ready, 0x01
+		ldi mpr, 0x01
+		mov user_ready, mpr
 
 		; If the opp is ready begin the game, set game state
 		; and enable move select interrupt PD4, otherwise end the routine
 		sbrs opp_ready, 0x01
-		jmp END_TRANSMIT
-		ldi game_state, 0x02
+		rjmp END_TRANSMIT
+		ldi mpr, 0x02
+		mov game_state, mpr
 
 		; Now enable PD4 (int 1) for move selection 
-		ldi mpr, 0b00000011
+		ldi mpr, 0b00000010
 		out EIMSK, mpr
 	
 	END_TRANSMIT:
@@ -454,7 +475,7 @@ RECEIVE:
 	lds recv_byte, UDR1
 
 	; If the message was the ready signal from opp handle that
-	cpi recv_byte, OxFF
+	cpi recv_byte, 0xFF
 	breq SET_OPPONENT_READY
 
 	; Otherwise just end the routine (ensure game won't restart)
@@ -462,13 +483,15 @@ RECEIVE:
 
 	SET_OPPONENT_READY:
 		; Set opp ready to indicate opponent is ready
-		ldi opp_ready, 0x01
+		ldi mpr, 0x01
+		mov opp_ready, mpr
 
 		; If the user is ready begin the game, set game state
 		; and enable move select interrupt PD4, otherwise end the routine
 		sbrs user_ready, 0x01
 		jmp END_RECEIVE
-		ldi game_state, 0x02
+		ldi mpr, 0x02
+		mov game_state, mpr
 
 		; Now enable PD4 (int 1) for move selection 
 		ldi mpr, 0b00000011
@@ -491,14 +514,10 @@ SEND_READY:
 	out EIFR, mpr
 
 	; Set game state to waiting for opponent and display on LCD
-	ldi game_state, 0x01
-	rcall LOAD_WAITING_MSG
+	ldi mpr, 0x01
+	mov game_state, mpr
+	call LOAD_WAITING_MSG
 	rcall LCDWrite
-
-	; Set the UDRE1 bit in the UCSR1A so transmit is allowed via our busy wait function
-	lds mpr, UCSR1A
-	sbr mpr, UDRE1
-	sts UCSR1A, mpr
 
 	; Load the Ready signal into the transmit buffer, then transmit
 	ldi mpr, SendReady
@@ -524,7 +543,7 @@ CYCLE_SELCTION:
 	breq SCISSORS
 
 	ROCK:
-		rcall LOAD_ROCK_MSG
+		call LOAD_ROCK_MSG
 		rcall LCDWrLn2
 		; Clear queued interrupts
 		ldi mpr, 0b00000001
@@ -532,7 +551,7 @@ CYCLE_SELCTION:
 		ret
 
 	PAPER:
-		rcall LOAD_PAPER_MSG
+		call LOAD_PAPER_MSG
 		rcall LCDWrLn2
 		; Clear queued interrupts
 		ldi mpr, 0b00000001
@@ -540,7 +559,7 @@ CYCLE_SELCTION:
 		ret
 
 	SCISSORS:
-		rcall LOAD_SCISSORS_MSG
+		call LOAD_SCISSORS_MSG
 		rcall LCDWrLn2
 		ldi item_selection, 0x00
 		; Clear queued interrupts
@@ -563,6 +582,9 @@ WAIT_ONE_HALF_SECOND:
 
 	; Set number of loops to 3
 	ldi loop_count, 3
+	ldi mpr, 0b00001111
+	out PORTB, mpr
+
 
 	WAIT_HALF_SECOND:
 		; Offset from max to get the right delay
@@ -619,7 +641,7 @@ WAIT_SIX_SECONDS:
 		in mpr, PORTB
 		lsr mpr
 		andi mpr, 0xF0
-		out PORTB
+		out PORTB, mpr
 
 		dec loop_count
 
